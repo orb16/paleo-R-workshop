@@ -5,14 +5,22 @@ Please feel free to use or remix - and submit pull requests with improvements!
 
 ## Intended schedule
 
-(1) Data & folders
-(2) Working directories, multiple computers, and reading in data
-(3) Data validation basics
-(4) Simple data visualisations
-(5) Multivariate analysis - ordination & clustering
-(6) More complex data viz (including multivariate)
-(7) Saving figures, tables & output
-(8) Age depth models *by Michelle* 
+(1) Data & folders 
+
+(2) Working directories, multiple computers, and reading in data 
+
+(3) Data validation basics 
+
+(4) Simple data visualisations 
+
+(5) Multivariate analysis - ordination & clustering 
+
+(6) More complex data viz (including multivariate) 
+
+(7) Saving figures, tables & output 
+
+(8) Age depth models *by Michelle*  
+
 
 We intend to hold this workshop in March/April 2018. TBC. 
 
