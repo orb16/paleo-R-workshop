@@ -24,6 +24,15 @@ Please feel free to use or remix - and submit pull requests with improvements!
 
 We intend to hold this workshop in March/April 2018. TBC. 
 
+## Extra references, links to good things
+
+- Jenny Bryan's slides on [organising files with better names](http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf). 
+
+- Many ways to organise folders (we'll touch on this) but here's [one example](https://nicercode.github.io/blog/2013-04-05-projects/) 
+
+- Data Carpentry (& Software Carpentry - both fantastic!) have some lessons, including on sorting out your data to make it easier to include [in R](http://www.datacarpentry.org/spreadsheet-ecology-lesson/). They also have a good [R lesson](http://www.datacarpentry.org/R-ecology-lesson/) if interested. 
+
+
 
 ## License:
 
