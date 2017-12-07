@@ -32,6 +32,9 @@ We intend to hold this workshop in March/April 2018. TBC.
 
 - Data Carpentry (& Software Carpentry - both fantastic!) have some lessons, including on sorting out your data to make it easier to include [in R](http://www.datacarpentry.org/spreadsheet-ecology-lesson/). They also have a good [R lesson](http://www.datacarpentry.org/R-ecology-lesson/) if interested. 
 
+- My tutorials on plotting ordinations: [basic here](https://oliviarata.wordpress.com/2014/04/17/ordinations-in-ggplot2/), `ordisurf` in ggplot [here](https://oliviarata.wordpress.com/2014/07/17/ordinations-in-ggplot2-v2-ordisurf/) and what everyone needs, 3D hulls :heart_eyes: [here](https://oliviarata.wordpress.com/2017/09/21/ordination-in-3d/). 
+
+- More comprehensive teaching materials from the [UC seminar series](https://github.com/orb16/seminaRs). 
 
 
 ## License:
