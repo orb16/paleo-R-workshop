@@ -1,0 +1,50 @@
+---
+title: "MWPALEO-Data organisation"
+author: "Olivia Burge"
+date: "26/06/2018"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    fig_height: 3
+    css: css/paleoStyles.css
+    logo: assets/img/mwlr-logo-800.png
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Welcome, and overview
+
+### First session:
+
+- Not heaps of paleo-specific R
+- But building blocks to make you an expeRt
+- Things that go into R (data inputs)
+- How to structure your data inputs and outputs
+- Getting started in R
+
+## Welcome, and overview
+
+### Second session:
+
+- Data validation
+- Data visualisation
+- NMDS
+- RDA 
+- Plotting NMDS etc for publications
+- Saving and export
+
+## BD (before data): project structures
+
+- Personal choice... BUT
+- Keep these separate:
+  (1) Raw data (as entered)
+  (2) Corrected and modified data
+- Keep a record of how you went from (1) to (2) - even if you don't do it in R
+  (1) Correct/modify data in R (with reminders)
+  (2) Create a new spreadsheet and keep a .txt records
+  
+## Project structures
+
