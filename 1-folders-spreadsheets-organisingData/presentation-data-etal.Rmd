@@ -13,6 +13,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+require(DiagrammeR, quietly = TRUE)
 ```
 
 ## Welcome, and overview
@@ -48,3 +49,153 @@ knitr::opts_chunk$set(echo = FALSE)
   
 ## Project structures
 
+```{r}
+
+DiagrammeR::grViz("
+digraph rmarkdown{
+
+node[fillcolor = orange,fontname = Helvetica,color=white,style=filled]
+project->data
+data->rawData
+data->cleanData
+project->R
+R -> dataCleaning
+R-> analysis
+project->output
+output->figs
+output->tables
+}
+
+           ")
+```
+
+## Where should a project live?
+
+Pros and cons of the following: 
+
+- MW-LCR shared drives
+- Dropbox (C:/)
+- Github (C:/)
+- MW-LCR personal drive
+
+## Where should a project live
+
+```{r, out.height = "400px", out.width = "700px", fig.cap= "githubScreenshot", echo=FALSE}
+
+knitr::include_graphics("assets/img/githubscreenshot.png")
+```
+
+
+## Within the project: naming files
+http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf
+
+Three principals:
+
+(1) Machine readable 
+(2) Human readable
+(3) Works with default ordering
+
+## Machine readable
+
+- no punctuation symbols 
+- no spaces
+- be careful with capitals
+- for data, easy to parse 
+
+## Machine readable
+
+- e.g. year_site_coreNUM_type
+- e.g. 2018-06-31_eweburn_X18-062_concentrations.csv 
+- e.g. 2018-06-31_eweburn_X18-062_age-depth.csv
+- e.g. 2018-06-31_eweburn_X18-062_species-dictionary.csv
+
+note that we separate units of metadata with a "_" and within units, with a "-".
+
+## Human readable
+
+- This applies to scripts and data 
+
+- e.g. 1_data-cleaning-vegetation.R
+- e.g. 2_data-cleaning-species-dictionary.R
+- e.g. function_plot-all-species.R
+- e.g. function_clean-italics-tilia.R
+
+## Group discussion - data & spreadsheets
+
+```{r, out.width = "100%",  fig.cap= "example data screenshot", echo=FALSE}
+
+knitr::include_graphics("assets/img/datascreenshot.png")
+```
+
+## Booting up the R
+
+```{r, out.width = "100%",  fig.cap= "rstudio", echo=FALSE}
+
+knitr::include_graphics("assets/img/rstudioscreenshot.png")
+```
+
+
+## The basics (1)
+
+```{r, echo = TRUE, eval = TRUE}
+getwd()
+
+```
+
+
+## The basics (2)
+
+```{r, echo = TRUE, eval = FALSE}
+setwd()
+
+```
+
+
+## The basics (3)
+
+```{r, echo = TRUE, eval = TRUE}
+sessionInfo()
+
+```
+
+
+## The basics (4)
+
+```{r, echo = TRUE, eval = TRUE}
+require(tidyverse)
+
+```
+
+## Example data
+
+```{r, echo = TRUE, message = FALSE, warning=FALSE}
+
+# install.packages("vegan")
+# install.packages("skimr")
+require(vegan)
+require(skimr)
+data("mite")
+data("mite.env")
+
+
+
+```
+
+## Viewing data
+
+```{r, echo = TRUE, eval = FALSE}
+head(mite, n = 6)
+```
+
+```{r, echo  = FALSE, results = "asis"}
+
+head(mite) %>%
+  kable()
+
+```
+
+## Viewing data
+
+```{r}
+skim(mite)
+```

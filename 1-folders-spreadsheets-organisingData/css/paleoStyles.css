@@ -1,8 +1,14 @@
+/*
 slides > slide.backdrop {
   background: none !important;
   background-color: white !important;
 }
+*/
 
+
+.title-slide {
+  background-color: #FFFFFF !important; /* #EDE0CF; ; #CA9F9D*/
+}
 
 /* this is for the logo on the front page */
 
@@ -47,4 +53,36 @@ slides > slide:not(.nobackground):before {
   top: 40px;
   left: 80%;
   padding: 40;
+}
+
+/* segue slide for part way - seems not to be part of ioslidse */
+/*
+.mySegue {
+  font-size: 105px;
+  line-height: 125px;
+  letter-spacing: -2px;
+  color: orange;
+  padding: 60px 120px;
+  background-color: black !important;
+  background: black;
+  
+}
+*/
+
+slide:not(.mySegue){
+  background-color: white;
+}
+
+.mySegue {
+  background-color: white; /* #EDE0CF; ; #CA9F9D*/
+  font-size: 105px;
+}
+
+.mySegue h2{
+    line-height: 1.05em;
+    font-size: 105px;
+}
+
+#nextSteps {
+  color: orange;
 }
