@@ -39,11 +39,14 @@ require(DiagrammeR, quietly = TRUE)
 
 ## BD (before data): project structures
 
-- Personal choice... BUT
-- Keep these separate:
   (1) Raw data (as entered)
   (2) Corrected and modified data
-- Keep a record of how you went from (1) to (2) - even if you don't do it in R
+  
+  
+## BD (before data): project structures
+  
+### Keep a record of how you went from (1) to (2) - even if you don't do it in R 
+
   (1) Correct/modify data in R (with reminders)
   (2) Create a new spreadsheet and keep a .txt records
   
@@ -199,3 +202,12 @@ head(mite) %>%
 ```{r}
 skim(mite)
 ```
+
+## Live coding demo 
+
+- Select some columns 
+- Filter just some observations
+- Histogram of one column
+
+
+
