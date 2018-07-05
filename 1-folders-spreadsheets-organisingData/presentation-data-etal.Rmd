@@ -210,4 +210,158 @@ skim(mite)
 - Histogram of one column
 
 
+## Select - concept 
 
+Select chooses certain columns - to keep, or to get rid of.
+The format is 
+
+`DATANAME %>% select(col1, col2, col3)` 
+
+
+## Select - examples
+
+```{r echo = TRUE}
+mite %>% 
+  select(Brachy, PHTH, HPAV)
+```
+
+## Select - examples
+
+```{r echo = TRUE}
+names(mite)
+mite %>% 
+  select(-c(PHTH:Oppiminu))
+```
+
+## What is this?  %>%  %>%  %>% 
+
+<p style="text-align:center"><img src="assets/img/wordcloud_chain.png" width="600"></p>
+
+## What is this?  %>%  %>%  %>% 
+
+Chaining allows us to write code in the order we want it done. Otherwise, it must be wrapped in brackets with the first thing to be done right in the middle. 
+
+`mite.env %>% select(Shrub, Topo)`
+
+means, take the mite.env dataframe, and then select the columns Shrub and Topo. 
+
+## Filter - concept
+
+Filter selects rows in your dataframe, based on the conditions you specify.  Same format as for `select()`:
+
+`filter(DATA, CONDITION1)` 
+
+ - row only selected if condition satisfied 
+
+## Filter - concept
+
+`filter(DATA, CONDITION1 & CONDITION2)` 
+
+- both conditions must be satisfied 
+
+`filter(DATA, CONDITION1 | CONDITION2)` 
+
+- one or both conditions must be satisfied 
+
+## Filter - example
+
+```{r, echo = TRUE}
+mite.env %>% filter(WatrCont > 650)
+```
+
+## Filter - example with two conditions
+
+Here, `Shrub` has to equal "Few". If you want to select two values (such as two sites) see the next slide. 
+
+```{r, echo = TRUE}
+mite.env %>% filter(WatrCont > 650 & Shrub == "Few")
+```
+
+## Filter - example selecting > 1 categorical element
+
+```{r, echo = TRUE}
+unique(mite.env$Substrate)
+
+mite.env %>% filter(Substrate %in% c("Litter", "Barepeat", "Interface"))
+
+```
+
+## Histogram: concept
+
+- We use the command `ggplot` which comes from the ggplot2 package. 
+- `ggplot()` just initiates the plot
+- then we tell it to draw a histogram with the `geom_histogram()` part.
+
+`ggplot(data = DATAFRAME, aes(x = COLUMN_FOR_HISTOGRAM)) + geom_histogram()`
+
+
+## First example plot: histogram
+
+```{r, echo = TRUE}
+
+ggplot(data = mite.env, aes(x = SubsDens)) +
+  geom_histogram() 
+
+```
+
+## First example plot: histogram
+
+```{r, echo = TRUE}
+
+ggplot(data = mite.env, aes(x = SubsDens)) +
+  geom_histogram(binwidth = 10) 
+
+```
+
+## Reading in **real** data!
+
+Actually, it should be real, but it should also be *tidy*
+
+## Reading in **real** data!
+
+- Where is the file
+- How do we tell R to get there
+    - This also depends where R has the working directory
+- We need to tell R how to get from the working directory, to the file that we want to read in!
+
+`getwd()` 
+
+`setwd()`
+
+## What happens with untidy data?
+
+```{r, echo = TRUE}
+
+aMess <- read.csv("data/messyDataExample.csv")
+
+head(aMess)
+
+```
+
+## What happens with untidy data?
+
+- To see the whole thing: `View(aMess)`
+
+- Compare the output of `names(aMess)` and `names(mite.env)`
+
+
+## Let's fix it, and read it back in
+
+[group task]
+
+
+## Read in tidied data
+
+- Where is it
+- Where is the working directory?
+- Where is the file in relation to our working directory?
+- What did we call it (ie the filename)?!
+
+- **Then we can read it back in**
+
+## Read in Eweburn data
+
+- Where is it?
+- Where is the working directory?
+- Where is the file in relation to our working directory?
+- What is the filename? 
