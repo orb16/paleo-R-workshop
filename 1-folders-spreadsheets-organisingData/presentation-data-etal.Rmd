@@ -177,8 +177,8 @@ require(tidyverse)
 # install.packages("skimr")
 require(vegan)
 require(skimr)
-data("mite")
-data("mite.env")
+data("mite")             # the data command only works for in-built data
+data("mite.env")         # we'll cover reading in your own data later on
 
 
 
@@ -199,7 +199,7 @@ head(mite) %>%
 
 ## Viewing data
 
-```{r}
+```{r, echo = TRUE}
 skim(mite)
 ```
 
@@ -277,7 +277,7 @@ Here, `Shrub` has to equal "Few". If you want to select two values (such as two 
 mite.env %>% filter(WatrCont > 650 & Shrub == "Few")
 ```
 
-## Filter - example selecting > 1 categorical element
+## Filter - example selecting > 1 element
 
 ```{r, echo = TRUE}
 unique(mite.env$Substrate)

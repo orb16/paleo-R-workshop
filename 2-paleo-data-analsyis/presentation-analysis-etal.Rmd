@@ -1,0 +1,27 @@
+---
+title: "MWPALEO-Data analysis"
+author: "Olivia Burge"
+date: "26/06/2018"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    fig_height: 3
+    css: css/paleoStyles.css
+    logo: assets/img/mwlr-logo-800.png
+---
+
+## Overview
+
+### This session will try to mimic workflows e.g.
+
+- Getting data in (again `r emo::ji("smile")`) 
+- Doing an analysis (e.g. ordination)
+- Plotting the analysis
+- Saving the plot and the analysis output 
+
+## Overview cont
+
+- If anyone has any specific requests
+- we can try some live coding `r emo::ji("grimacing face")``r emo::ji("grimacing face")`
+- otherwise we will work through as many as 
+- NB re plotting stratigraphic diagrams - nothing as specialised and all-encompassing as non-R options. 
