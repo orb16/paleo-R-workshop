@@ -169,6 +169,8 @@ require(tidyverse)
 
 ```
 
+
+
 ## Example data
 
 ```{r, echo = TRUE, message = FALSE, warning=FALSE}
@@ -194,6 +196,16 @@ head(mite, n = 6)
 
 head(mite) %>%
   kable()
+
+```
+
+## The basics (5)
+
+- When you just want one column, you can use the following format `dataframeNAME$columnNAME`
+
+```{r, echo = T}
+
+mite$Brachy
 
 ```
 
@@ -232,6 +244,18 @@ names(mite)
 mite %>% 
   select(-c(PHTH:Oppiminu))
 ```
+
+
+## Select - discussion
+
+- What is the difference between `$` and `select`?
+```{r, echo = TRUE, eval = FALSE}
+mite$Brachy               # 'base' R
+mite["Brachy"]            # 'base R
+mite %>% select(Brachy)   # tidyverse
+mite %>% pull(Brachy)     # tidyverse but we haven't discussed this one yet
+```
+
 
 ## What is this?  %>%  %>%  %>% 
 
@@ -359,9 +383,144 @@ head(aMess)
 
 - **Then we can read it back in**
 
-## Read in Eweburn data
+## Read in Awarua data
 
 - Where is it?
 - Where is the working directory?
 - Where is the file in relation to our working directory?
 - What is the filename? 
+
+## Awarua data
+
+```{r, echo = TRUE}
+awarua <- read.csv("data/awaruaForestExample.csv")
+head(awarua)
+
+```
+
+## Awarua - exercise
+
+- create a subset of the data.frame called "awaruaCharcoal"
+- we only want up to and including 20 cm
+- we only want the Depth column, and the two charcoal columns
+- *bonus* rename the depth column `Depth..cm.` to depth_CM
+
+```{r, echo = TRUE, eval = FALSE}
+awaruaCharcoal <- awarua %>%
+  [...]
+```
+
+## Awarua - exercise answer
+
+```{r, echo = TRUE}
+
+awaruaCharcoal <- awarua %>%
+  filter(Depth..cm. <= 20) %>%
+  select(depth_CM = Depth..cm., PCHARS, PCHARL)
+
+head(awaruaCharcoal, 2)
+
+```
+
+## Awarua - plot example
+
+```{r, echo = TRUE}
+
+charcoalPlot <- ggplot(data = awaruaCharcoal, aes(x = depth_CM, y = PCHARS)) +
+  geom_line() +    
+  theme_classic() +
+  labs(x = "Depth (cm)", y = "Charcoal", title = "Charcoal within Awarua wetland",
+       subtitle = "Forest site")
+charcoalPlot
+
+```
+
+## Awarua - plot exercise - modifying plots
+
+- Can you change the title of the y-axis to something else?
+- Can you change the colour of the line? 
+- [extension] try googling to see if you can find out how to reverse the direction of the x-axis
+
+## Awarua - plot exercise - creating a plot
+
+- Take the original awarua data (`awarua`), make a plot of depth vs DACCUP
+- Style it as you want
+- How would we add extra lines for DACDAC & MYRSIN? 
+
+## Awarua - plot creation answer {.smaller}
+
+- NB there are easier ways of doing this - but we have to reshape the data first
+
+```{r, echo = TRUE, fig.width = 3}
+
+awaruaPlot <- ggplot(awarua, aes(x = Depth..cm., y = DACCUP)) +
+  geom_line() + 
+  geom_line(aes(y = DACDAC), linetype = "dashed") + 
+  geom_line(aes(y = MYRSIN), linetype = "dotted") +
+  theme_classic() +
+  scale_x_reverse() +
+  coord_flip() +  # switches the x and y axes
+  labs(y = "Count", x = "Depth (cm)")
+awaruaPlot
+
+```
+
+## Mutate - concept
+
+- Sometimes we want to change values in a column. For example, take the log or square-root. 
+- Or we may want to calculate the percentage instead of counts
+- When we change values, we use the function `mutate`.
+- We give the name of the new column we want, and what we want to do to the old column
+
+`dataFRAME %>% mutate(logDACDAC = log(DACDAC))` 
+<br>
+`dataFRAME %>% mutate(sqrtCHARCOAL_SML = sqrt(PCHARS))`
+
+## Mutate - example
+
+```{r echo = TRUE}
+awaruaCharcoal %>%
+  mutate(totalCharcoal = PCHARS + PCHARL) 
+```
+
+## Mutate - example
+
+```{r, echo = TRUE, results = "hide"}
+# just calculate rowSums
+rowSums(awarua)
+
+# but we don't want to sum the charcoal and depth columns!
+rowSums(awarua %>% select(-c(Depth..cm., PCHARL, PCHARS)))
+
+# also we'd like it actually as a new column in the dataframe...
+# so we take the code above, give the new col a name ("allRows")
+awaruaWithTotals <- awarua %>%
+ mutate(allRows = rowSums(awarua %>% select(-c(Depth..cm., PCHARL, PCHARS))))
+
+```
+
+## Mutate - example
+
+- to transform everything to percents, 
+- we use a special form of mutate
+- and we choose which columns to 
+
+```{r, echo = TRUE}
+awaruaVeg <- awaruaWithTotals %>%
+  select(-c(PCHARL, PCHARS, allRows, Depth..cm.)) %>% 
+  mutate_all(.funs = function(eachColumn) {100 * eachColumn / awaruaWithTotals$allRows})
+
+head(awaruaVeg)
+```
+
+## Mutate example - cont
+
+- Now we put the Depths column back with the vegetation
+
+```{r, echo = TRUE}
+awaruaVegDepths <- data.frame(Depths = awaruaWithTotals$Depth..cm.,
+                              awaruaVeg)
+
+head(awaruaVegDepths)
+
+```
