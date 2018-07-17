@@ -59,8 +59,8 @@ require(tidyverse)
 
 # if you don't have any of the packages below
 # use the following examples to install them
-install.packages(analogue)
-install.packages(rioja)
+# install.packages(analogue)
+# install.packages(rioja)
 
 # now load the packages: 
 
@@ -77,6 +77,34 @@ require(rioja)
 
 ```
 
+## Basic ordination - we use our data
+
+```{r, echo = TRUE}
+data(mite)
+data(mite.env)
+mOrd <- metaMDS(mite, distance = "bray", k = 2, try = 100)
+```
+
+## Basic ord
+
+```{r, echo = TRUE}
+plot(mOrd, "sites")
+ordihull(mOrd, groups = mite.env$Topo)
+```
+
+## Basic ord
+
+```{r, echo = TRUE}
+plot(mOrd, type = "n") # start a blank plot
+points(mOrd, display = "sites", col = "grey")
+ordiellipse(mOrd, groups = mite.env$Topo, kind = "sd", 
+            show.groups = "Blanket", lty = "dashed",
+            label = TRUE)
+ordiellipse(mOrd, groups = mite.env$Topo, kind = "sd", 
+            show.groups = "Hummock", lty = "solid",
+            label = TRUE)
+
+```
 
 ## Read in data
 
