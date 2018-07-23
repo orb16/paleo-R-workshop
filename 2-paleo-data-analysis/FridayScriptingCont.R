@@ -3,7 +3,7 @@
 # set the working directory
 setwd("\\\\RichardHadlee/user1/BurgeO/Documents/paleo-R-workshop")
 
-# load libraries 
+# load libraries
 require(analogue)
 require(vegan)
 require(rioja)
@@ -17,7 +17,7 @@ eweburnCounts <- read.csv(
 
 
 
-eweburnWide <- eweburnCounts %>% 
+eweburnWide <- eweburnCounts %>%
   filter(!Sums %in% c("W", "F")) %>%     # drop the species in the sums W and F
   select(FullNames, counts, Depths) %>%  # take only one species-specific column, plus the counts and depths
   spread(key = FullNames, value = counts) %>%          # spread from long to wide
@@ -26,9 +26,9 @@ eweburnWide
 
 
 
-eweVeg <- eweburnWide %>% 
+eweVeg <- eweburnWide %>%
   select(X.iAlnus : X.Poa..40um.not..iChionochloa)  # select just the veg cols
-nrow(eweVeg)
+nrow(eweVeg)      # number of rows in eweVeg
 ncol(eweburnWide) # number of cols in the earlier object
 ncol(eweVeg)      # number of cols in eweVeg
 names(eweVeg)
@@ -37,15 +37,18 @@ names(eweVeg)
 
 # run the ordination based on eweburn
 
-ord <- metaMDS(comm = eweVeg, 
+ord <- metaMDS(comm = eweVeg,
                distance = "jaccard",
                k = 2)  # k = 2 = nuumber of dimensions
 stressplot(ord)
 plot(ord)
-ord
+ord            # prints your specifications for the ordination, and the stress
 
-plot(ord, "sites")
-text(ord, "species")
+plot(ord, "sites")     # plot the sites
+text(ord, "species")   # but label the species. works better with abbreviations.
+
+
+# Plotting - the hard way - extract data and then plot
 
 plottingDat <- data.frame(
   eweburnWide %>% select(Depths),   # select Depths from non-veg dataset
@@ -54,24 +57,24 @@ head(plottingDat)
 
 
 plottingDat <- plottingDat %>%
-  mutate(DepthCategorical = 
+  mutate(DepthCategorical =
            ifelse(Depths < 70, "Shallow", "Deep"))
 #View(plottingDat)
 
-ordPlot <- ggplot(plottingDat, 
+ordPlot <- ggplot(plottingDat,
                   aes(x = NMDS1, y = NMDS2)) +
-  geom_point(aes(colour = DepthCategorical), 
+  geom_point(aes(colour = DepthCategorical),
              size = 2)  +
   coord_equal()  +# necessary for ordination plots
   theme_minimal() +
   theme(
     legend.position = "bottom"
-  ) 
+  )
 
 ordPlot2 <- ordPlot +
   scale_colour_manual("Depth categorical",
                       limits = c("Shallow", 'Deep'),
-                      values = c("orange", 
+                      values = c("orange",
                                  "forestgreen"))
 ordPlot2
 
@@ -93,31 +96,38 @@ rowSums(eweburnSpecies)   # sum each row
 myThreshold <- quantile(colSums(eweburnSpecies), probs = .7)
 myAbsoluteThreshold <- 30
 
-Stratiplot(x = eweburnSpecies[colSums(eweburnSpecies) > myThreshold], 
+# Strat plot examples -
+# the examples for both functions have heaps of good
+# content in (I learnt from the examples)
+# in the help ie run ?Stratiplot
+# once you have the package laoded
+
+Stratiplot(x = eweburnSpecies[colSums(eweburnSpecies) > myThreshold],
            y = newEweburn$Depths)
 
-Stratiplot(x = eweburnSpecies, 
+Stratiplot(x = eweburnSpecies,
            y = newEweburn$Depths)
 
-Stratiplot(x = eweburnSpecies[colSums(eweburnSpecies) > myThreshold], 
+Stratiplot(x = eweburnSpecies[colSums(eweburnSpecies) > myThreshold],
            y = newEweburn$Depths,
-           type = "poly", 
+           type = "poly",
            col.poly = "royalblue",
            rev = TRUE,
            # strip = TRUE,
-           sort = "wa", 
+           sort = "wa",
            ylab = "Depth")
 
 
 
-tp <- strat.plot(d = eweburnSpecies[colSums(eweburnSpecies) > myThreshold], 
+tp <- strat.plot(d = eweburnSpecies[colSums(eweburnSpecies) > myThreshold],
                  yvar = newEweburn$Depths,
                  plot.poly = TRUE, col.poly = "darkblue",
-                 col.poly.line = NA, 
-                 exag = TRUE, 
+                 col.poly.line = NA,
+                 exag = TRUE,
                  y.rev=TRUE,
                  wa.order = "topleft")
 
+# Stratigraphic with clustering
 
 VD <- vegdist(eweburnSpecies, "jaccard") # creates a distance matrix
 clust <- chclust(VD, method = "coniss")
@@ -125,11 +135,11 @@ bstick(clust) # hmm perhaps 3 or 5
 
 
 
-tp2 <- strat.plot(d = eweburnSpecies %>% select_if(colSums(.) > myThreshold), 
+tp2 <- strat.plot(d = eweburnSpecies %>% select_if(colSums(.) > myThreshold),
                   yvar = newEweburn$Depths, plot.poly = TRUE, #col.poly = ourCols,
                   col.poly.line = "black", exag = TRUE, srt.xlabel = 45,
                   y.rev=TRUE,
-                  clust = clust, 
+                  clust = clust,
                   wa.order = "topleft", cex.ylabel = 0.8, cex.xlabel = 0.8)
 addClustZone(tp2, clust, 3,
              "black", lwd = 3, lty = "dashed")
